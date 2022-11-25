@@ -1,15 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import { app } from "./firebaseConfig";
 import { getAuth } from "firebase/auth";
 import Nav from "./Nav";
 import './styles/ProfileScreen.css'
-
+import PlansScreen from "./PlansScreen";
+import firebase from 'firebase/compat/app';
+import "firebase/compat/auth";
+        
 
 function ProfileScreen (){
-    const user= "Dummy bhava";
-    const plan="premium"  // ipo hardcoded
+    // const user= "Dummy bhava";
+    
+    const [plan,setPlan]=useState("")
+    const getPlan= (data) =>{
+        console.log("Dara",data)
+        setPlan(data)
+    }
+
     const auth=getAuth();
+    const user=auth.currentUser;
+    console.log("user",user);
     return(
         <div className="profileScreen">
         <Nav/>
@@ -23,7 +33,7 @@ function ProfileScreen (){
                 <h2>{user}</h2>
                 <div className="profileScreen_plans">
                 <h3>Plans(Current Plan: {plan} )</h3>
-                
+                <PlansScreen Plan={getPlan} />
                 <button onClick={()=> auth.signOut()} className="profileScreen_signout">Sign Out</button>
                 </div>
                 </div>

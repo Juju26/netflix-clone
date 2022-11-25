@@ -1,6 +1,7 @@
 // https://netflix-clone-b52e1.web.app
-import { initializeApp } from "firebase/app";
-
+// import { initializeApp } from "firebase/app";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdGYVJhpE3-s6qhgpdfvkOaDd0ppd-PVk",
@@ -13,5 +14,6 @@ const firebaseConfig = {
 };
 
 
-export  const app=initializeApp(firebaseConfig);
+export  const app=firebase.initializeApp(firebaseConfig);
+export const db=firebase.firestore();
 
