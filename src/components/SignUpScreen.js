@@ -1,14 +1,21 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 // import Firebase from "./Firebase.js";
 import './styles/SignUpScreen.css';
 import { app } from "./firebaseConfig";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
+import { useNavigate } from "react-router-dom";
+
+
 
 function SignUpScreen(){
     
    
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
+    const navigate=useNavigate()
+
+
+
 
     const register =(e)=>{
         e.preventDefault();
@@ -39,7 +46,12 @@ function SignUpScreen(){
             email,
             password
         ).then((authUser)=>{
-            console.log("Logged in as ",authUser);
+            
+            // console.log("Logged in as ",authUser);
+            localStorage.setItem("user",authUser.user.email)
+            console.log("Logged in as ",authUser.user.email);
+            window.location.reload(false)
+            
         }).catch((err)=>{
             if(err.message==="Firebase: Error (auth/user-not-found)."){
                 alert("Invalid email!")
@@ -52,7 +64,8 @@ function SignUpScreen(){
     }
 
     return(
-        <div className="signUpScreen">
+       
+                <div className="signUpScreen">
             <form>
                 <h1>Sign In</h1>
                 <input 
@@ -72,6 +85,7 @@ function SignUpScreen(){
                     </h4>
             </form>
         </div>
+          
     )
 }
 

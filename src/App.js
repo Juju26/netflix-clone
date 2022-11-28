@@ -11,33 +11,39 @@ import ProfileScreen from './components/ProfileScreen';
 
 function App() {
 
-  let user= {
-    user:"juju@gmail.com",
-  } //useSelector(selectUser);
+  document.title="Netflix-Home"
+
+ const [user,setUser]=useState('')
   const dispatch=useDispatch();
   const auth=getAuth()
-
+ 
   useEffect(()=>{
-    const unsubscribe= auth.onAuthStateChanged((userAuth)=>{
+  //   const unsubscribe= auth.onAuthStateChanged((userAuth)=>{
       
-      if(userAuth){
-        //logged in
-        dispatch(
-          login({
-          uid: userAuth.uid,
-          email : userAuth.email,
-        })
-        );
+  //     if(userAuth){
+  //       //logged in
+  //       dispatch(
+  //         login({
+  //         uid: userAuth.uid,
+  //         email : userAuth.email,
+  //       })
+  //       );
 
-      }
+  //     }
 
-      else{
-        //logged out
-        dispatch(logout())
-      }
-    })
-    return unsubscribe;
-  },[dispatch])
+  //     else{
+  //       //logged out
+  //       dispatch(logout())
+  //     }
+  //   })
+  //   return unsubscribe;
+  // },[dispatch])
+  setUser(localStorage.getItem("user"))
+  if(user){
+    console.log("current user")
+  }
+
+})
 
 
   return (

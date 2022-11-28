@@ -6,19 +6,28 @@ import './styles/ProfileScreen.css'
 import PlansScreen from "./PlansScreen";
 import firebase from 'firebase/compat/app';
 import "firebase/compat/auth";
+import { useNavigate } from "react-router-dom";
         
 
 function ProfileScreen (){
     // const user= "Dummy bhava";
-    
+    document.title="Profile"
+    const navigate=useNavigate()
     const [plan,setPlan]=useState("")
     const getPlan= (data) =>{
         console.log("Dara",data)
         setPlan(data)
     }
-
-    const auth=getAuth();
-    const user=auth.currentUser;
+    const signout=(e)=>{
+        
+        localStorage.removeItem("user");
+        console.log("Signed out")
+        window.location.reload(false)
+        
+    }
+    // const auth=getAuth();
+    // const user=auth.currentUser;
+    const user=localStorage.getItem("user")
     console.log("user",user);
     return(
         <div className="profileScreen">
@@ -34,7 +43,7 @@ function ProfileScreen (){
                 <div className="profileScreen_plans">
                 <h3>Plans(Current Plan: {plan} )</h3>
                 <PlansScreen Plan={getPlan} />
-                <button onClick={()=> auth.signOut()} className="profileScreen_signout">Sign Out</button>
+                <button onClick={(e)=>signout(e) } className="profileScreen_signout">Sign Out</button>
                 </div>
                 </div>
                </div>
